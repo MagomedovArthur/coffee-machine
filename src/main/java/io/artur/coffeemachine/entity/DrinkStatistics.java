@@ -17,17 +17,18 @@ import java.sql.Timestamp;
 public class DrinkStatistics {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drink_id", nullable = false)
     private Drink drink;
 
-    @Column(name = "order_count", nullable = false)
-    private Long orderCount;
-
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
+
+    public DrinkStatistics(Drink drink) {
+        this.drink = drink;
+    }
 }

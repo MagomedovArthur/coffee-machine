@@ -16,7 +16,7 @@ import java.util.Set;
 public class Drink {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -31,8 +31,12 @@ public class Drink {
     private Timestamp updatedAt;
 
     @OneToMany(mappedBy = "drink", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<DrinkIngredient> drinkIngredients;
+    private Set<DrinkIngredient> drinkIngredientEntities;
 
     @OneToMany(mappedBy = "drink", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<DrinkStatistics> drinkStatistics;
+    private Set<DrinkStatistics> drinkStatisticEntities;
+
+    public Drink(String name) {
+        this.name = name;
+    }
 }

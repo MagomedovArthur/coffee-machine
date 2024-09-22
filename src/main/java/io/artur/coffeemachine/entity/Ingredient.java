@@ -16,7 +16,7 @@ import java.util.Set;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true, nullable = false)
@@ -34,5 +34,10 @@ public class Ingredient {
     private Timestamp updatedAt;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<DrinkIngredient> drinkIngredients;
+    private Set<DrinkIngredient> drinkIngredientEntities;
+
+    public Ingredient(String name, Integer remainingQuantity) {
+        this.name = name;
+        this.remainingQuantity = remainingQuantity;
+    }
 }

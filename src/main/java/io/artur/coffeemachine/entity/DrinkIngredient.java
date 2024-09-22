@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 public class DrinkIngredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,4 +39,10 @@ public class DrinkIngredient {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+
+    public DrinkIngredient(Drink drink, Ingredient ingredient, Integer quantity) {
+        this.drink = drink;
+        this.ingredient = ingredient;
+        this.quantity = quantity;
+    }
 }
