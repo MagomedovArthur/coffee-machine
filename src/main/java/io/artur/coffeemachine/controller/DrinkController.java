@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/drink")
+@RequestMapping("/api/drinks")
 @RequiredArgsConstructor
 public class DrinkController {
 
     private final DrinkService drinkService;
     private final DrinkIngredientService drinkIngredientService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<DrinkDto> addNewDrinkRecipe(@RequestBody NewDrinkDto newDrinkDto) {
         DrinkDto drink = drinkIngredientService.addNewDrinkRecipe(newDrinkDto);
         return ResponseEntity.ok(drink);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<DrinkDto>> getDrinksList() {
         List<DrinkDto> drinkList = drinkService.getDrinksList();
         return ResponseEntity.ok(drinkList);

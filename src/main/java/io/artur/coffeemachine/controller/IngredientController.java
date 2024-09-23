@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/ingredient")
+@RequestMapping("/api/ingredients")
 @RequiredArgsConstructor
 public class IngredientController {
 
     private final IngredientService ingredientService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<IngredientDto> addNewIngredient(@RequestBody IngredientDto ingredientDto) {
         IngredientDto ingredient = ingredientService.addNewIngredient(ingredientDto);
         return ResponseEntity.ok(ingredient);
@@ -27,7 +27,7 @@ public class IngredientController {
         return ResponseEntity.ok(ingredient);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<IngredientDto>> getIngredientsList() {
         List<IngredientDto> ingredientsList = ingredientService.getIngredientsList();
         return ResponseEntity.ok(ingredientsList);

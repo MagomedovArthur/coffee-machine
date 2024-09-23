@@ -14,7 +14,7 @@ This project is a software solution designed to control a coffee machine via API
     - Monitor the quantity and availability of ingredients.
 
 - **Recipe Management**:
-    - Ability to save and modify new drink recipes.
+    - Ability to save new drink recipes.
 
 - **Statistics Collection**:
     - Track and identify the most popular drink based on user orders.
@@ -27,5 +27,6 @@ This project is a software solution designed to control a coffee machine via API
 -  Flyway
 -  Swagger UI
 
+Database Structure: https://dbdiagram.io/d/coffe_machine_db-66ec6300a0828f8aa66b7cd0
 
    
