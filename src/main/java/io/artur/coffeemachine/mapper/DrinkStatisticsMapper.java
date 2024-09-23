@@ -12,5 +12,6 @@ public interface DrinkStatisticsMapper {
 
     DrinkStatisticsMapper INSTANCE = Mappers.getMapper(DrinkStatisticsMapper.class);
 
-    List<DrinkDto> toDrinkDtoList(List<DrinkStatistics> drink);
+    //    List<DrinkDto> toDrinkDtoList(List<DrinkStatistics> drink);
+    DrinkDto toDrinkDto(DrinkStatistics drink);
 }

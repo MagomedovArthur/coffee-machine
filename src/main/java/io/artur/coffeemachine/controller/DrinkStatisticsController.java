@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/statistics")
 @RequiredArgsConstructor
@@ -18,8 +16,8 @@ public class DrinkStatisticsController {
     private final DrinkStatisticsService drinkStatisticsService;
 
     @GetMapping("/popular")
-    public ResponseEntity<List<DrinkDto>> getPopularDrink() {
-        List<DrinkDto> popularDrink = drinkStatisticsService.getMostPopularDrink();
+    public ResponseEntity<DrinkDto> getPopularDrink() {
+        DrinkDto popularDrink = drinkStatisticsService.getMostPopularDrink();
         return ResponseEntity.ok(popularDrink);
     }
 }
