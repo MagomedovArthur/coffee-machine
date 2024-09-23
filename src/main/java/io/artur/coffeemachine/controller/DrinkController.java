@@ -36,6 +36,6 @@ public class DrinkController {
         DrinkDto drink = drinkService.prepareDrink(drinkName);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Your " + drink.name() + " is ready!");
+                .body("Your '" + drink.name() + "' is ready!");
     }
 }

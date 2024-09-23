@@ -1,7 +1,6 @@
 package io.artur.coffeemachine.controller;
 
 import io.artur.coffeemachine.dto.IngredientDto;
-import io.artur.coffeemachine.dto.NewDrinkDto;
 import io.artur.coffeemachine.service.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,12 @@ public class IngredientController {
     @PostMapping("/add")
     public ResponseEntity<IngredientDto> addNewIngredient(@RequestBody IngredientDto ingredientDto) {
         IngredientDto ingredient = ingredientService.addNewIngredient(ingredientDto);
+        return ResponseEntity.ok(ingredient);
+    }
+
+    @PostMapping("/increase-quantity")
+    public ResponseEntity<IngredientDto> increaseAmountOfIngredient(@RequestBody IngredientDto ingredientDto) {
+        IngredientDto ingredient = ingredientService.increaseAmountOfIngredient(ingredientDto);
         return ResponseEntity.ok(ingredient);
     }
 

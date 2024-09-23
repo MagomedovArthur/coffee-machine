@@ -24,4 +24,15 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
             nativeQuery = true)
     void reduceQuantity(@Param("name") String name,
                         @Param("amount") int amount);
+
+    @Modifying
+    @Query(value = """
+            UPDATE ingredient
+            SET remaining_quantity = remaining_quantity + :amount,
+                updated_at = NOW()
+            WHERE name = :name
+            """,
+            nativeQuery = true)
+    void increaseQuantity(@Param("name") String name,
+                          @Param("amount") int amount);
 }
