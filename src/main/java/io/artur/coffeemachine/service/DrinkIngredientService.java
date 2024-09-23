@@ -28,7 +28,8 @@ public class DrinkIngredientService {
     public DrinkDto addNewDrinkRecipe(NewDrinkDto newDrinkDto) {
         var drink = drinkRepository.findByName(newDrinkDto.drinkName());
         if (drink.isPresent()) {
-            throw new DrinkAlreadyExistsException("The drink you are trying to add already exists.");
+            throw new DrinkAlreadyExistsException("The drink '" + newDrinkDto.drinkName()
+                                                  + "' you are trying to add already exists.");
         }
         Drink newDrink = drinkRepository.save(new Drink(newDrinkDto.drinkName()));
         for (IngredientDto ingredient : newDrinkDto.ingredients()) {

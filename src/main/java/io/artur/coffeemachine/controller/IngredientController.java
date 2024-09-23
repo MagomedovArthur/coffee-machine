@@ -22,13 +22,13 @@ public class IngredientController {
     }
 
     @PostMapping("/increase-quantity")
-    public ResponseEntity<IngredientDto> increaseAmountOfIngredient(@RequestBody IngredientDto ingredientDto) {
-        IngredientDto ingredient = ingredientService.increaseAmountOfIngredient(ingredientDto);
+    public ResponseEntity<IngredientDto> increaseQuantityOfIngredient(@RequestBody IngredientDto ingredientDto) {
+        IngredientDto ingredient = ingredientService.increaseQuantityOfIngredient(ingredientDto);
         return ResponseEntity.ok(ingredient);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<IngredientDto>> getIngredientList() {
+    public ResponseEntity<List<IngredientDto>> getIngredientsList() {
         List<IngredientDto> ingredientsList = ingredientService.getIngredientsList();
         return ResponseEntity.ok(ingredientsList);
     }

@@ -57,9 +57,10 @@ public class DrinkService {
     @Transactional
     public boolean checkAvailabilityOfIngredients(String ingredientName, int ingredientQuantity) {
         var ingredient = ingredientRepository.getIngredientByNameIgnoreCase(ingredientName)
-                .orElseThrow(() -> new IngredientsNotFoundException("No ingredient found."));
-        var remainingAmountOfIngredient = ingredient.getRemainingQuantity();
-        if (remainingAmountOfIngredient - ingredientQuantity >= 0) {
+                .orElseThrow(() -> new IngredientsNotFoundException("The ingredient '" + ingredientName
+                                                                    + "' was not found"));
+        var remainingQuantityOfIngredient = ingredient.getRemainingQuantity();
+        if (remainingQuantityOfIngredient - ingredientQuantity >= 0) {
             return true;
         } else {
             throw new NotEnoughQuantityOfIngredientsException("Ingredient '" + ingredientName
