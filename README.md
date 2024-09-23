@@ -28,6 +28,5 @@ This project is a software solution designed to control a coffee machine via API
 -  Swagger UI
 
 Database Structure: https://dbdiagram.io/d/coffe_machine_db-66ec6300a0828f8aa66b7cd0
-
 <img src="./images/database-schema.jpg" width="1117">
    
