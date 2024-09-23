@@ -7,9 +7,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * This repository provides methods for performing CRUD operations on drink statistics data in the database,
+ * extending the functionalities of {@link JpaRepository}.
+ */
 @Repository
 public interface DrinkStatisticsRepository extends JpaRepository<DrinkStatistics, Long> {
 
+    /**
+     * Retrieves the most popular drink based on the statistics.
+     * This query finds the drink that has been ordered the most by counting how many times each drink
+     * appears in the statistics, and returning the one with the highest count.
+     *
+     * @return an {@link Optional} containing the {@link DrinkStatistics} of the most popular drink, or empty if no data is found.
+     */
     @Query(value = """
             SELECT *
             FROM drink_statistics
