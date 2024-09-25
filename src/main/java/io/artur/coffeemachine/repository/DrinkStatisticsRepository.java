@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 
 /**
@@ -32,4 +33,6 @@ public interface DrinkStatisticsRepository extends JpaRepository<DrinkStatistics
             LIMIT 1
              """, nativeQuery = true)
     Optional<DrinkStatistics> getMostPopularDrink();
+
+    void deleteAllByCreatedAtBefore(Timestamp createdAt);
 }
