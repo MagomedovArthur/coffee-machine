@@ -3,9 +3,11 @@ package io.artur.coffeemachine.repository;
 import io.artur.coffeemachine.entity.DrinkStatistics;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -35,4 +37,24 @@ public interface DrinkStatisticsRepository extends JpaRepository<DrinkStatistics
     Optional<DrinkStatistics> getMostPopularDrink();
 
     void deleteAllByCreatedAtBefore(Timestamp createdAt);
+
+    /**
+     * Checks if the number of drink orders in the last hour exceeds a specified limit.
+     *
+     * <p>This query counts the number of orders placed in the drink statistics table
+     * since a specified time (usually one hour ago) and compares it to the provided order limit.</p>
+     *
+     * @param orderLimit the threshold limit of orders to check (e.g., 30 for 30 orders per hour)
+     * @param oneHourAgo the timestamp representing one hour ago from the current time
+     * @return {@code true} if the number of orders in the last hour is greater than or equal to {@code orderLimit},
+     * {@code false} otherwise
+     */
+    @Query(value = """
+            SELECT COUNT(*) >= :orderLimit
+            FROM drink_statistics
+            WHERE created_at >= :oneHourAgo
+             """, nativeQuery = true)
+    boolean wereThere30OrdersInTheLastHour(@Param("orderLimit") Integer orderLimit,
+                                           @Param("oneHourAgo") LocalDateTime oneHourAgo);
+
 }

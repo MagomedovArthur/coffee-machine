@@ -76,4 +76,20 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(e.getMessage());
     }
+
+    /**
+     * This method is invoked when an {@code OrderLimitExceededException} is thrown in the application.
+     * It creates a response entity with an HTTP status of {@code CONFLICT} (409) and includes
+     * the exception message in the response body. This informs the client that the request
+     * could not be processed due to the order limit being exceeded.
+     *
+     * @param e the {@code OrderLimitExceededException} that was thrown
+     * @return a {@link ResponseEntity} containing the error message and a conflict status
+     */
+    @ExceptionHandler(OrderLimitExceededException.class)
+    public ResponseEntity<String> handleIngredientAlreadyExists(OrderLimitExceededException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
+    }
 }

@@ -7,6 +7,7 @@ import io.artur.coffeemachine.entity.DrinkStatistics;
 import io.artur.coffeemachine.exception.DrinksNotFoundException;
 import io.artur.coffeemachine.exception.IngredientsNotFoundException;
 import io.artur.coffeemachine.exception.NotEnoughQuantityOfIngredientsException;
+import io.artur.coffeemachine.exception.OrderLimitExceededException;
 import io.artur.coffeemachine.mapper.DrinkMapper;
 import io.artur.coffeemachine.repository.DrinkIngredientRepository;
 import io.artur.coffeemachine.repository.DrinkRepository;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class DrinkService {
     private final IngredientRepository ingredientRepository;
     private final DrinkIngredientRepository drinkIngredientRepository;
     private final DrinkMapper drinkMapper;
+    private final static int ORDER_LIMIT_PER_HOUR = 30;
 
     /**
      * Retrieves a list of all drinks in the system.
@@ -63,6 +66,7 @@ public class DrinkService {
      */
     @Transactional
     public DrinkDto prepareDrink(String drinkName) {
+        isOrderLimitExceeded();
         var drink = drinkRepository.findByName(drinkName);
         if (drink.isEmpty()) {
             throw new DrinksNotFoundException("The drink '" + drinkName + "' was not found");
@@ -77,6 +81,21 @@ public class DrinkService {
         }
         drinkStatisticsRepository.save(new DrinkStatistics(drink.get()));
         return drinkMapper.toDrinkDto(drink.get());
+    }
+
+    /**
+     * This method retrieves the number of drink orders placed in the last hour
+     * by querying the {@code drinkStatisticsRepository}. If the number of orders exceeds
+     * the predefined {@code ORDER_LIMIT_PER_HOUR}, it throws an {@link OrderLimitExceededException}
+     * to indicate that no more orders can be processed at this time.
+     *
+     * @throws OrderLimitExceededException if the number of orders placed in the last hour exceeds the limit
+     */
+    private void isOrderLimitExceeded() {
+        LocalDateTime lastHour = LocalDateTime.now().minusHours(1);
+        if (drinkStatisticsRepository.wereThere30OrdersInTheLastHour(ORDER_LIMIT_PER_HOUR, lastHour)) {
+            throw new OrderLimitExceededException("Order limit has been exceeded. Please try again in a little while.");
+        }
     }
 
     /**
